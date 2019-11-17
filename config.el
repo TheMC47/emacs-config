@@ -18,9 +18,22 @@
 ;;MAGIT
 (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
 
+;; Undo Granularity
+(advice-add 'undo-auto--last-boundary-amalgamating-number :override #'ignore)
+
 ;;TRAMP SETTINGS
 
+
+;; Flycheck
+(setq flycheck-check-syntax-automatically '(mode-enabled idle-change))
 
 
 ;;HASKELL
 (require 'haskell-mode)
+
+
+;; C/C++
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)

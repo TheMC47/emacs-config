@@ -9,3 +9,4 @@
 
 (package! doom-themes)
 (package! evil-snipe)
+(package! irony)
