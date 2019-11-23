@@ -5,16 +5,16 @@
 (require 'doom-themes)
 
 (load-theme 'doom-molokai t)
-
+(setq doom-font "Source Code Pro:pixelsize=16")
 (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
 (doom-themes-treemacs-config)
 
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 ;; UI
-(doom/increase-font-size 0.3)
+;;(doom/increase-font-size 0.3)
 (setq-default truncate-lines nil)
-
+(global-whitespace-mode -1)
 ;;MAGIT
 (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
 
@@ -25,15 +25,12 @@
 
 
 ;; Flycheck
-(setq flycheck-check-syntax-automatically '(mode-enabled idle-change))
+(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled idle-change)))
 
 
-;;HASKELL
+;; EShell
+(setq-hook! 'eshell-mode-hook company-idle-delay nil)
+
+
+;; Haskell
 (require 'haskell-mode)
-
-
-;; C/C++
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
