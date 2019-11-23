@@ -12,7 +12,6 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 ;; UI
-;;(doom/increase-font-size 0.3)
 (setq-default truncate-lines nil)
 (global-whitespace-mode -1)
 ;;MAGIT
