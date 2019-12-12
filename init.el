@@ -75,7 +75,7 @@
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame Jupyter notebooks with emacs
+       ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
        ;;flyspell          ; tasing you for misspelling mispelling
@@ -116,7 +116,7 @@
        (haskell +intero) ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       (java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -139,7 +139,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;;python            ; beautiful is better than ugly
+       python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
@@ -184,8 +184,48 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(+popup-mode t)
+ '(company-backends (quote (company-eclim)))
+ '(eclim-eclipse-dirs (quote ("/usr/lib/eclipse")))
+ '(flycheck-popup-tip-error-prefix "✕ ")
+ '(haskell-interactive-popup-errors nil)
+ '(meghanada-class-completion-matcher "fuzzy")
  '(pdf-view-continuous t)
- '(pdf-view-midnight-colors (quote ("gainsboro" . "#002b36"))))
+ '(pdf-view-midnight-colors (quote ("gainsboro" . "#002b36")))
+ '(which-key-custom-hide-popup-function (quote which-key--hide-buffer-side-window))
+ '(which-key-custom-popup-max-dimensions-function
+   (quote
+    (closure
+     (t)
+     (_)
+     (which-key--side-window-max-dimensions))))
+ '(which-key-custom-show-popup-function
+   (quote
+    (closure
+     (t)
+     (act-popup-dim)
+     (let*
+         ((vnew
+           (function
+            (lambda
+              (buffer alist)
+              (+popup-display-buffer-stacked-side-window-fn buffer
+                                                            (append
+                                                             (quote
+                                                              ((vslot . -9999)))
+                                                             alist)))))
+          (old
+           (symbol-function
+            (quote display-buffer-in-side-window))))
+       (unwind-protect
+           (progn
+             (fset
+              (quote display-buffer-in-side-window)
+              vnew)
+             (which-key--show-buffer-side-window act-popup-dim))
+         (fset
+          (quote display-buffer-in-side-window)
+          old)))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

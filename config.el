@@ -13,6 +13,7 @@
 (doom-themes-org-config)
 ;; UI
 (setq-default truncate-lines nil)
+(setq doom-line-numbers-style 'relative)
 (global-whitespace-mode -1)
 ;;MAGIT
 (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
@@ -26,10 +27,35 @@
 ;; Flycheck
 (after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled idle-change)))
 
+;; pdf-tools
+(setq pdf-view-resize-factor 1.1)
 
 ;; EShell
 (setq-hook! 'eshell-mode-hook company-idle-delay nil)
 
+;; Irony
+(setq irony-server-install-prefix '"/usr/")
+ (add-hook 'c++-mode-hook 'irony-mode)
+ (add-hook 'c-mode-hook 'irony-mode)
+ (add-hook 'objc-mode-hook 'irony-mode)
+
+ (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Haskell
-(require 'haskell-mode)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+(setq haskell-stylish-on-save t)
+
+(setq haskell-mode-stylish-haskell-path "brittany")
+
+;; Java
+;; (require 'eclim)
+;; (setq eclimd-autostart t)
+;; (global-eclim-mode)
+;; (custom-set-variables
+;;   '(eclim-eclipse-dirs '("/usr/lib/eclipse")))
+;; (setq help-at-pt-display-when-idle t)
+;; (setq help-at-pt-timer-delay 0.1)
+;; (help-at-pt-set-timer)
+
+;; (after! (company company-emacs-eclim)
+;;   (company-emacs-eclim-setup))
