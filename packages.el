@@ -10,6 +10,6 @@
 (package! doom-themes)
 (package! evil-snipe)
 (package! irony)
-(package! haskell-mode)
 (package! eclim)
+(package! lsp-haskell)
 (package! company-emacs-eclim)

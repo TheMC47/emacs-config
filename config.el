@@ -42,20 +42,16 @@
  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Haskell
-(add-hook 'haskell-mode-hook #'hindent-mode)
-(setq haskell-stylish-on-save t)
 
-(setq haskell-mode-stylish-haskell-path "brittany")
+;;(add-hook 'haskell-mode-hook 'dante-mode)
 
-;; Java
-;; (require 'eclim)
-;; (setq eclimd-autostart t)
-;; (global-eclim-mode)
-;; (custom-set-variables
-;;   '(eclim-eclipse-dirs '("/usr/lib/eclipse")))
-;; (setq help-at-pt-display-when-idle t)
-;; (setq help-at-pt-timer-delay 0.1)
-;; (help-at-pt-set-timer)
-
-;; (after! (company company-emacs-eclim)
-;;   (company-emacs-eclim-setup))
+;; (use-package dante
+;;   :ensure t
+;;   :after haskell-mode
+;;   :commands 'dante-mode
+;;   :init
+;;   (add-hook 'haskell-mode-hook 'flycheck-mode)
+;;   ;; OR:
+;;   ;; (add-hook 'haskell-mode-hook 'flymake-mode)
+;;   (add-hook 'haskell-mode-hook 'dante-mode)
+;;   )
