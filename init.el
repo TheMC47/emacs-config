@@ -36,12 +36,13 @@
         +defaults)       ; default popup rules
        pretty-code       ; replace bits of code with pretty symbols
        ;;tabs              ; an tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -49,7 +50,7 @@
        fold              ; (nigh) universal code folding
        (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
-       ;;lispy             ; vim for lisp, for people who dont like vim
+       ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
@@ -64,7 +65,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; a consistent, cross-platform shell (WIP)
+       ;;eshell            ; a consistent, cross-platform shell (WIP)
        ;;shell             ; a terminal REPL for Emacs
        ;;term              ; terminals in Emacs
        ;;vterm             ; another terminals in Emacs
@@ -93,12 +94,11 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       ;;wakatime
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;;assembly          ; assembly for fun or debugging
-       ;;cc                ; C/C++/Obj-C madness
+       assembly          ; assembly for fun or debugging
+       cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -113,15 +113,16 @@
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp           ; ML stands for Microsoft's Language
        ;;go                ; the hipster dialect
-       (haskell +lsp) ; a language that's lazier than I am
+       (haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        latex             ; writing papers in Emacs has never been so fun
        ;;lean
+       ;;factor
        ;;ledger            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
@@ -130,19 +131,20 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
-        ;+hugo            ; use Emacs for hugo blogging
-        +ipython         ; ipython/jupyter support for babel
-        +pandoc          ; export-with-pandoc support
-        ;+pomodoro        ; be fruitful with the tomato technique
+        ;;+hugo            ; use Emacs for hugo blogging
+        +jupyter        ; ipython/jupyter support for babel
+        ;;+pandoc          ; export-with-pandoc support
+        ;;+pomodoro        ; be fruitful with the tomato technique
         +present)        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
-       ;;php               ; perl's insecure younger brother
+       php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +conda)           ; beautiful is better than ugly
+       ;;python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
@@ -154,78 +156,27 @@
        ;;web               ; the tubes
 
        :email
-       ;;(mu4e +gmail)       ; WIP
-       ;;notmuch             ; WIP
-       ;;(wanderlust +gmail) ; WIP
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
 
-       ;; Applications are complex and opinionated modules that transform Emacs
-       ;; toward a specific purpose. They may have additional dependencies and
-       ;; should be loaded late.
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       ;;(write            ; emacs for writers (fiction, notes, papers, etc.)
-       ;; +wordnut         ; wordnet (wn) search
-       ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
+       ;;write             ; emacs for writers (fiction, notes, papers, etc.)
 
        :config
-       ;; For literate config users. This will tangle+compile a config.org
-       ;; literate config in your `doom-private-dir' whenever it changes.
        ;;literate
-
-       ;; The default module sets reasonable defaults for Emacs. It also
-       ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
-       ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(+popup-mode t)
- '(company-backends (quote (company-eclim)))
- '(eclim-eclipse-dirs (quote ("/usr/lib/eclipse")))
- '(flycheck-popup-tip-error-prefix "✕ ")
- '(haskell-interactive-popup-errors nil)
- '(meghanada-class-completion-matcher "fuzzy")
- '(pdf-view-continuous t)
- '(pdf-view-midnight-colors (quote ("gainsboro" . "#002b36")))
- '(which-key-custom-hide-popup-function (quote which-key--hide-buffer-side-window))
- '(which-key-custom-popup-max-dimensions-function
-   (quote
-    (closure
-     (t)
-     (_)
-     (which-key--side-window-max-dimensions))))
- '(which-key-custom-show-popup-function
-   (quote
-    (closure
-     (t)
-     (act-popup-dim)
-     (let*
-         ((vnew
-           (function
-            (lambda
-              (buffer alist)
-              (+popup-display-buffer-stacked-side-window-fn buffer
-                                                            (append
-                                                             (quote
-                                                              ((vslot . -9999)))
-                                                             alist)))))
-          (old
-           (symbol-function
-            (quote display-buffer-in-side-window))))
-       (unwind-protect
-           (progn
-             (fset
-              (quote display-buffer-in-side-window)
-              vnew)
-             (which-key--show-buffer-side-window act-popup-dim))
-         (fset
-          (quote display-buffer-in-side-window)
-          old)))))))
+ '(midnight-mode t)
+ '(pdf-view-midnight-colors (quote ("dark gray" . "#012B36"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
