@@ -67,3 +67,5 @@
 
 ;; Python
 (add-to-list '+format-on-save-enabled-modes 'python-mode 't)
+(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
+(after! lsp-mode (setq lsp-pyls-plugins-pycodestyle-ignore '("E501")))
