@@ -60,7 +60,7 @@
 (after! pdf-view-mode (setq pdf-view-midnight-colors '("dark gray" . "#012B36")))
 
 ;;Flycheck
-(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled idle-change)) (setq flycheck-idle-change-delay '1))
+(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled idle-change)) (setq flycheck-idle-change-delay '0.1))
 
 ;; UI
 (setq truncate-lines nil)
