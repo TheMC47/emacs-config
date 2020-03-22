@@ -60,12 +60,15 @@
 (after! pdf-view-mode (setq pdf-view-midnight-colors '("dark gray" . "#012B36")))
 
 ;;Flycheck
-(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled idle-change)) (setq flycheck-idle-change-delay '0.1))
+(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save)) (setq flycheck-idle-change-delay '0.5))
 
 ;; UI
 (setq truncate-lines nil)
 
 ;; Python
 (add-to-list '+format-on-save-enabled-modes 'python-mode 't)
-(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
+;; not needed after using direnv(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
 (after! lsp-mode (setq lsp-pyls-plugins-pycodestyle-ignore '("E501")))
+
+;; use tab indentation everywhere
+(setq-default indent-tabs-mode nil)
