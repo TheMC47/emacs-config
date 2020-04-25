@@ -26,6 +26,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-palenight)
+;; (setq doom-theme 'doom-one-light)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -59,16 +60,51 @@
 ;; midnight-mode colors :dark grey, #012B36
 (after! pdf-view-mode (setq pdf-view-midnight-colors '("dark gray" . "#012B36")))
 
+(defun get-string-from-file (filePath)
+  "Return filePath's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+
+(defun pdf-view-save-page ()
+  "Save the current page number for the document."
+  (interactive)
+  (let ((pdf-view-page-no (number-to-string (pdf-view-current-page))))
+    (shell-command
+     (concat "~/.doom.d/scripts/pdf-view-save.py "
+             pdf-view-page-no " \""buffer-file-name"\" " "save"))))
+(defun pdf-view-load-page ()
+  "Load the saved page number for the document."
+  (interactive)
+  ;; .py scripts wants three arguments, so we'll send 0 as a fake page
+  ;; number.
+  (shell-command
+   (concat "~/.doom.d/scripts/pdf-view-save.py "
+           "0" " \""buffer-file-name"\" " "load"))
+  (let ((pdf-view-saved-page-no
+         (string-to-number
+          (get-string-from-file "/tmp/pdf-view-save"))))
+    (if (= pdf-view-saved-page-no -1)
+        (message "No saved page number.")
+      (pdf-view-goto-page pdf-view-saved-page-no))))
+
+
 ;;Flycheck
 (after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save)) (setq flycheck-idle-change-delay '0.5))
 
 ;; UI
 (setq truncate-lines nil)
-
+(setq +evil-want-o/O-to-continue-comments nil)
 ;; Python
-(add-to-list '+format-on-save-enabled-modes 'python-mode 't)
+;; (add-to-list '+format-on-save-enabled-modes 'python-mode 't)
+(after! (python-mode lsp-mode) (setq flycheck-checker 'python-flake8))
+
 ;; not needed after using direnv(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
 (after! lsp-mode (setq lsp-pyls-plugins-pycodestyle-ignore '("E501")))
 
 ;; use tab indentation everywhere
 (setq-default indent-tabs-mode nil)
+(after! lsp-mode
+  (setq lsp-enable-file-watchers nil
+        lsp-enable-indentation nil
+        lsp-enable-semantic-highlighting nil))
