@@ -173,7 +173,7 @@
        ;;write             ; emacs for writers (fiction, notes, papers, etc.)
 
        :config
-       ;;literate
+       literate
        (default +bindings +smartparens))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
