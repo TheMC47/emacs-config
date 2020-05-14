@@ -88,6 +88,15 @@
         (message "No saved page number.")
       (pdf-view-goto-page pdf-view-saved-page-no))))
 
+;; TODO doesn't work, figure out why
+;; (defun save-pdf-hook ()
+;;   (if (and buffer-file-name
+;;            (file-name-extension buffer-file-name)
+;;            (string= (downcase (file-name-extension buffer-file-name)) "pdf"))
+;;       (pdf-view-save-page)))
+
+;; (add-hook 'kill-buffer-hook 'save-pdf-hook)
+;; (add-hook 'pdf-view-mode-hook 'pdf-view-load-page)
 
 ;;Flycheck
 (after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save)) (setq flycheck-idle-change-delay '0.5))
@@ -97,14 +106,50 @@
 (setq +evil-want-o/O-to-continue-comments nil)
 ;; Python
 ;; (add-to-list '+format-on-save-enabled-modes 'python-mode 't)
-(after! (python-mode lsp-mode) (setq flycheck-checker 'python-flake8))
+;; (after! (python-mode lsp-mode) (setq flycheck-checker 'python-flake8))
 
 ;; not needed after using direnv(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
-(after! lsp-mode (setq lsp-pyls-plugins-pycodestyle-ignore '("E501")))
 
 ;; use tab indentation everywhere
 (setq-default indent-tabs-mode nil)
-(after! lsp-mode
-  (setq lsp-enable-file-watchers nil
-        lsp-enable-indentation nil
-        lsp-enable-semantic-highlighting nil))
+;; (after! lsp-mode
+;;   (setq lsp-enable-file-watchers nil
+;;         lsp-enable-indentation nil
+;;         lsp-enable-semantic-highlighting nil))
+(setq lsp-idle-delay 2.0)
+;; latex
+(after! company-lsp
+  (add-to-list 'company-lsp-filter-candidates '(texlab . t)))
+(setq company-global-modes '(not latex-mode))
+
+
+(defun my/dired-go-home ()
+  (interactive)
+  (dired "~"))
+
+(map!
+ :after dired
+ :map dired-mode-map
+ :n "~" #'my/dired-go-home)
+
+;; (add-hook! 'pdf-view-before-change-page-hook
+;;   (when buffer-file-name
+;;     (doom-store-put buffer-file-name (pdf-view-current-page) nil "pdf-view-page")))
+
+;; (add-hook! 'pdf-view-mode-hook
+;;   (when-let (page (doom-store-get buffer-file-name "pdf-view-page"))
+;;     (pdf-view-goto-page page)))
+
+;; (setq-default window-combination-resize t)
+
+
+;; (after! ivy-posframe (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))))
+
+;; (defun ivy-posframe-get-size ()
+;;   "The default functon used by `ivy-posframe-size-function'."
+;;   (list
+;;    :height ivy-posframe-height
+;;    :width ivy-posframe-width
+;;    :min-height (or ivy-posframe-min-height (+ ivy-height 1))
+;;    :min-width (or ivy-posframe-min-width (round (* (frame-width) 0.62)))))
+(add-hook 'LaTeX-mode-hook #'latex-preview-pane-mode)
