@@ -4,7 +4,31 @@
 #+LANGUAGE: en
 #+STARTUP: inlineimages
 #+PROPERTY: header-args :results silent :padline no
+* General
+** Info
+General information. I decided to keep the comments from the original config example, because I find them pretty helpful
+#+BEGIN_SRC emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; refresh' after modifying this file!
+
+
+;; These are used for a number of things, particularly for GPG configuration,
+;; some email clients, file templates and snippets.
+(setq user-full-name "Yecine Megdiche"
+      user-mail-address "yecine.megdiche@gmail.com")
+#+END_SRC
+** Completion
+For auto-completion I use company.
+#+BEGIN_SRC emacs-lisp
+(setq company-idle-delay 0)
+#+END_SRC
+** Linting
+#+BEGIN_SRC emacs-lisp
+(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save idle-change)) (setq flycheck-idle-change-delay '0))
+#+END_SRC
+* Misc
 #+BEGIN_SRC emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
@@ -60,9 +84,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Company
-(setq company-idle-delay 0)
-
 ;; midnight-mode colors :dark grey, #012B36
 
 (defun get-string-from-file (filePath)
@@ -70,7 +91,6 @@
   (with-temp-buffer
     (insert-file-contents filePath)
     (buffer-string)))
-
 (defun pdf-view-save-page ()
   "Save the current page number for the document."
   (interactive)
@@ -103,8 +123,6 @@
 ;; (add-hook 'kill-buffer-hook 'save-pdf-hook)
 ;; (add-hook 'pdf-view-mode-hook 'pdf-view-load-page)
 
-;;Flycheck
-(after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save)) (setq flycheck-idle-change-delay '0.5))
 
 ;; UI
 (setq truncate-lines nil)
@@ -132,6 +150,10 @@
  :map dired-mode-map
  :n "~" #'my/dired-go-home)
 
+(map!
+  :after undo-tree-mode
+  :map undo-tree-map
+  :n "U" undo-tree-redo)
 ;; (add-hook! 'pdf-view-before-change-page-hook
 ;;   (when buffer-file-name
 ;;     (doom-store-put buffer-file-name (pdf-view-current-page) nil "pdf-view-page")))
@@ -162,6 +184,12 @@ Pdf is enabled from lang: pdf. This adds pdf-view-mode.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+(after! pdf-view
+  (remove-hook! 'pdf-view-change-page-hook '+pdf-remember-page-number-h)
+  (remove-hook! 'pdf-view-mode-hook '+pdf-restore-page-number-h))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 (defun pdf-view-save-page ()
   "Save the current page number for the document."
   (interactive)
@@ -175,6 +203,7 @@ Pdf is enabled from lang: pdf. This adds pdf-view-mode.
   (when-let (page (doom-store-get buffer-file-name "pdf-view"))
     (pdf-view-goto-page page)))
 #+END_SRC
+
 
 * Latex
 - Disable Company mode. I don't find it particularly useful, it just overcrowds the screen. Using snippets instead is better.
