@@ -44,3 +44,16 @@
 
 (package! sudoku)
 (package! jupyter)
+(package! isar-mode :recipe
+  (:host github
+   :repo "m-fleury/isar-mode"))
+
+(package! isar-goal-mode :recipe
+  (:host github
+   :repo "m-fleury/simp-isar-mode"))
+
+(package! lsp-isar :recipe
+  (:host github
+   :repo "m-fleury/isabelle-release"
+   :branch "isabelle2019-more-vscode"
+   :files ("src/Tools/emacs-lsp/lsp-isar/*.el")))

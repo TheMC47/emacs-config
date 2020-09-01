@@ -30,16 +30,6 @@ For auto-completion I use company.
 #+END_SRC
 * Misc
 #+BEGIN_SRC emacs-lisp
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; refresh' after modifying this file!
-
-
-;; These are used for a number of things, particularly for GPG configuration,
-;; some email clients, file templates and snippets.
-(setq user-full-name "Yecine Megdiche"
-      user-mail-address "yecine.megdiche@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -57,7 +47,7 @@ For auto-completion I use company.
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-nova)
 ;; (setq doom-theme 'doom-one-light)
 
 ;; If you intend to use org, it is recommended you change this!
@@ -154,6 +144,11 @@ For auto-completion I use company.
   :after undo-tree-mode
   :map undo-tree-map
   :n "U" undo-tree-redo)
+
+(map!
+ :after yasnippet
+ :map yas-minor-mode-map
+ :i "C-," #'yas-expand)
 ;; (add-hook! 'pdf-view-before-change-page-hook
 ;;   (when buffer-file-name
 ;;     (doom-store-put buffer-file-name (pdf-view-current-page) nil "pdf-view-page")))
@@ -174,6 +169,7 @@ For auto-completion I use company.
 ;;    :width ivy-posframe-width
 ;;    :min-height (or ivy-posframe-min-height (+ ivy-height 1))
 ;;    :min-width (or ivy-posframe-min-width (round (* (frame-width) 0.62)))))
+(setq ivy-read-action-function #'ivy-hydra-read-action)
 #+END_SRC
 * PDF
 Pdf is enabled from lang: pdf. This adds pdf-view-mode.
@@ -213,6 +209,11 @@ Pdf is enabled from lang: pdf. This adds pdf-view-mode.
 - This way, opening a latex file will automatically open the preview pane
 #+BEGIN_SRC emacs-lisp
 (add-hook 'LaTeX-mode-hook #'latex-preview-pane-mode)
+#+END_SRC
+* Treemacs
+This makes treemacs prettier
+#+BEGIN_SRC emacs-lisp
+(setq doom-themes-treemacs-theme "doom-colors")
 #+END_SRC
 
 * Notes
