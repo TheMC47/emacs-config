@@ -6,6 +6,23 @@
 #+PROPERTY: header-args :results silent :padline no
 #+OPTIONS: toc:2
 Welcome to my emacs-config. I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my distribution, so the config will only work on that. I kept a lot of the comments from the original example, as they are really helpful.
+
+* Table of Contents :TOC:
+- [[#general][General]]
+  - [[#info][Info]]
+- [[#flychek-linting][Flychek: Linting]]
+- [[#company-auto-complete][Company: Auto-Complete]]
+- [[#ui][UI]]
+- [[#orgmode][Orgmode]]
+- [[#lsp][LSP]]
+- [[#dired][Dired]]
+- [[#snippets-yasnippet][Snippets: YASnippet]]
+- [[#ivy][Ivy]]
+- [[#pdf][PDF]]
+- [[#latex][Latex]]
+- [[#isabelle][Isabelle]]
+- [[#notes][Notes]]
+
 * General
 ** Info
 Place your private configuration here! Remember, you do not need to run 'doom refresh' after modifying this file!
