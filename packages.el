@@ -56,4 +56,4 @@
   (:host github
    :repo "m-fleury/isabelle-release"
    :branch "isabelle2019-more-vscode"
-   :files ("src/Tools/emacs-lsp/lsp-isar/*.el")))
+   :files ("src/Tools/emacs-lsp/lsp-isar/lsp-*.el")))

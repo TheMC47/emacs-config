@@ -4,78 +4,106 @@
 #+LANGUAGE: en
 #+STARTUP: inlineimages
 #+PROPERTY: header-args :results silent :padline no
+Welcome to my emacs-config. I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my distribution, so the config will only work on that. I kept a lot of the comments from the original example, as they are really helpful.
 * General
 ** Info
-General information. I decided to keep the comments from the original config example, because I find them pretty helpful
+Place your private configuration here! Remember, you do not need to run 'doom refresh' after modifying this file!
 #+BEGIN_SRC emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; refresh' after modifying this file!
-
-
-;; These are used for a number of things, particularly for GPG configuration,
-;; some email clients, file templates and snippets.
+#+END_SRC
+These are used for a number of things, particularly for GPG configuration, some email clients, file templates and snippets.
+#+BEGIN_SRC emacs-lisp
 (setq user-full-name "Yecine Megdiche"
       user-mail-address "yecine.megdiche@gmail.com")
 #+END_SRC
-** Completion
-For auto-completion I use company.
-#+BEGIN_SRC emacs-lisp
-(setq company-idle-delay 0)
-#+END_SRC
-** Linting
+* Flychek: Linting
 #+BEGIN_SRC emacs-lisp
 (after! flycheck (setq flycheck-check-syntax-automatically '(mode-enabled new-line save idle-change)) (setq flycheck-idle-change-delay '0))
 #+END_SRC
-* Misc
-#+BEGIN_SRC emacs-lisp
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; test
+* Company: Auto-Complete
+I don't like to wait for the auto-complete prompt
+#+BEGIN_SRC emacs-lisp
+(setq company-idle-delay 0)
+#+END_SRC
+* UI
+Truncate long lines
+#+BEGIN_SRC emacs-lisp
+(setq truncate-lines nil)
+#+END_SRC
+Doom exposes five (optional) variables for controlling fonts in Doom. Here are the three important ones:
++ ~doom-font~
++ ~doom-variable-pitch-font~
++ ~doom-big-font~ -- used for ~doom-big-font-mode~
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font string. You generally only need these two:
+#+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "Source Code Pro" :size 16)
       doom-variable-pitch-font (font-spec :family "sans"))
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. These are the defaults.
+#+END_SRC
+There are two ways to load a theme. Both assume the theme is installed and available. You can either set ~doom-theme~ or manually load a theme with the ~load-theme~ function. These are the defaults.
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-nova)
-;; (setq doom-theme 'doom-one-light)
-
-;; If you intend to use org, it is recommended you change this!
+#+END_SRC
+Another bright theme I like to use is ~doom-one-light~
+For the line-numbers, these are the possible values:
++ ~relative~
++ ~absolute~
++ ~nil~, which disables the number line
+#+BEGIN_SRC emacs-lisp
+(setq display-line-numbers-type `relative)
+#+END_SRC
+This makes treemacs prettier
+#+BEGIN_SRC emacs-lisp
+(setq doom-themes-treemacs-theme "doom-colors")
+#+END_SRC
+Use tab indentation everywhere
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+* Orgmode
+#+BEGIN_SRC emacs-lisp
 (setq org-directory "~/org/")
+#+END_SRC
+* LSP
+#+BEGIN_SRC emacs-lisp
+(setq lsp-idle-delay 2.0)
+#+END_SRC
+* Dired
+Use ~~~ in a ~dired~ buffer to go to the home directory.
+#+BEGIN_SRC emacs-lisp
+(defun my/dired-go-home ()
+  (interactive)
+  (dired "~"))
 
-;; If you want to change the style of line numbers, change this to `relative' or
-;; `nil' to disable it:
-(setq display-line-numbers-type `absolute)
+(map!
+ :after dired
+ :map dired-mode-map
+ :n "~" #'my/dired-go-home)
 
+#+END_SRC
+* Snippets: YASnippet
+A dedicated key (other than ~TAB~) for expanding snippets.
+#+BEGIN_SRC emacs-lisp
+(map!
+ :after yasnippet
+ :map yas-minor-mode-map
+ :i "C-," #'yas-expand)
 
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', where Emacs
-;;   looks when you load packages with `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
-;; they are implemented.
-
-;; midnight-mode colors :dark grey, #012B36
-
+#+END_SRC
+* Ivy
+With this, ~C-o~ will show a list of available actions in a hydra.
+#+BEGIN_SRC emacs-lisp
+(setq ivy-read-action-function #'ivy-hydra-read-action)
+#+END_SRC
+* PDF
+- Some customization to set midnight clors and resize factor
+#+BEGIN_SRC emacs-lisp
+(setq pdf-view-midnight-colors '("dark gray" . "#012B36"))
+(setq pdf-view-resize-factor 1.1)
+#+END_SRC
+- This is supposed to save the last visited page, but it just doesn't work... I need to fix this.
+#+BEGIN_SRC emacs-lisp
+;; TODO doesn't work, figure out why
 (defun get-string-from-file (filePath)
   "Return filePath's file content."
   (with-temp-buffer
@@ -103,7 +131,6 @@ For auto-completion I use company.
         (message "No saved page number.")
       (pdf-view-goto-page pdf-view-saved-page-no))))
 
-;; TODO doesn't work, figure out why
 ;; (defun save-pdf-hook ()
 ;;   (if (and buffer-file-name
 ;;            (file-name-extension buffer-file-name)
@@ -112,80 +139,9 @@ For auto-completion I use company.
 
 ;; (add-hook 'kill-buffer-hook 'save-pdf-hook)
 ;; (add-hook 'pdf-view-mode-hook 'pdf-view-load-page)
-
-
-;; UI
-(setq truncate-lines nil)
-(setq +evil-want-o/O-to-continue-comments nil)
-;; Python
-;; (add-to-list '+format-on-save-enabled-modes 'python-mode 't)
-;; (after! (python-mode lsp-mode) (setq flycheck-checker 'python-flake8))
-
-;; not needed after using direnv(setenv "WORKON_HOME" "/home/yecinem/anaconda3/envs")
-
-;; use tab indentation everywhere
-(setq-default indent-tabs-mode nil)
-;; (after! lsp-mode
-;;   (setq lsp-enable-file-watchers nil
-;;         lsp-enable-indentation nil
-;;         lsp-enable-semantic-highlighting nil))
-(setq lsp-idle-delay 2.0)
-
-(defun my/dired-go-home ()
-  (interactive)
-  (dired "~"))
-
-(map!
- :after dired
- :map dired-mode-map
- :n "~" #'my/dired-go-home)
-
-(map!
-  :after undo-tree-mode
-  :map undo-tree-map
-  :n "U" undo-tree-redo)
-
-(map!
- :after yasnippet
- :map yas-minor-mode-map
- :i "C-," #'yas-expand)
-;; (add-hook! 'pdf-view-before-change-page-hook
-;;   (when buffer-file-name
-;;     (doom-store-put buffer-file-name (pdf-view-current-page) nil "pdf-view-page")))
-
-;; (add-hook! 'pdf-view-mode-hook
-;;   (when-let (page (doom-store-get buffer-file-name "pdf-view-page"))
-;;     (pdf-view-goto-page page)))
-
-;; (setq-default window-combination-resize t)
-
-
-;; (after! ivy-posframe (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))))
-
-;; (defun ivy-posframe-get-size ()
-;;   "The default functon used by `ivy-posframe-size-function'."
-;;   (list
-;;    :height ivy-posframe-height
-;;    :width ivy-posframe-width
-;;    :min-height (or ivy-posframe-min-height (+ ivy-height 1))
-;;    :min-width (or ivy-posframe-min-width (round (* (frame-width) 0.62)))))
-(setq ivy-read-action-function #'ivy-hydra-read-action)
-#+END_SRC
-* PDF
-Pdf is enabled from lang: pdf. This adds pdf-view-mode.
-- Some customization to set midnight clors and resize factor
-#+BEGIN_SRC emacs-lisp
-(setq pdf-view-midnight-colors '("dark gray" . "#012B36"))
-(setq pdf-view-resize-factor 1.1)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
 (after! pdf-view
   (remove-hook! 'pdf-view-change-page-hook '+pdf-remember-page-number-h)
   (remove-hook! 'pdf-view-mode-hook '+pdf-restore-page-number-h))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
 (defun pdf-view-save-page ()
   "Save the current page number for the document."
   (interactive)
@@ -200,7 +156,6 @@ Pdf is enabled from lang: pdf. This adds pdf-view-mode.
     (pdf-view-goto-page page)))
 #+END_SRC
 
-
 * Latex
 - Disable Company mode. I don't find it particularly useful, it just overcrowds the screen. Using snippets instead is better.
 #+BEGIN_SRC emacs-lisp
@@ -210,10 +165,40 @@ Pdf is enabled from lang: pdf. This adds pdf-view-mode.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'LaTeX-mode-hook #'latex-preview-pane-mode)
 #+END_SRC
-* Treemacs
-This makes treemacs prettier
+* Isabelle
+Say goodbye to jEdit!
+First, follow the instructions at https://github.com/m-fleury/isabelle-release/tree/Isabelle2020-more-vscode/src/Tools/emacs-lsp/spacemacs_layers/isabelle to build isabelle.
+Afterwards, this (together with the package declarations in ~packages.el~) should allow ~lsp-isar~ to play nicely with doom.
 #+BEGIN_SRC emacs-lisp
-(setq doom-themes-treemacs-theme "doom-colors")
+(use-package! isar-mode
+  :ensure t
+  :mode "\\.thy\\'")
+
+(use-package! isar-goal-mode
+  :ensure t)
+
+(use-package lsp-isar
+  :after isar-mode isar-goal-mode
+  :commands lsp-isar-define-client-and-start lsp-isar-open-output-and-progress-right-spacemacs
+  :hook ((isar-mode . flycheck-mode)
+         (isar-mode . lsp-isar-define-client-and-start)
+         (isar-mode . yas-minor-mode)
+         (lsp-isar-init . lsp-isar-open-output-and-progress-right-spacemacs))
+  :config
+  (setq lsp-response-timeout 1200)
+  (setq lsp-restart 'ignore)
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-isar-path-to-isabelle "~/isabelle-release")
+  (push (concat lsp-isar-path-to-isabelle "/src/Tools/emacs-lsp/yasnippet") yas-snippet-dirs)
+  (yas-reload-all)
+  :init
+  (setq display-line-numbers-type `relative))
+
+(map! :map isar-mode-map
+      :leader
+      :nv "i i" 'lsp-isar-insert-sledgehammer-and-call
+          "i s" 'lsp-isar-sledgehammer-interface
+          "i t" 'lsp-isar-insert-try0)
 #+END_SRC
 
 * Notes
