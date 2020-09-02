@@ -74,7 +74,7 @@ This makes treemacs prettier
 #+BEGIN_SRC emacs-lisp
 (setq doom-themes-treemacs-theme "doom-colors")
 #+END_SRC
-Use tab indentation everywhere
+Use space indentation everywhere
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+END_SRC
