@@ -45,7 +45,7 @@ I don't like to wait for the auto-complete prompt
 (setq company-idle-delay 0)
 #+END_SRC
 * UI
-Truncate long lines
+Don't truncate long lines
 #+BEGIN_SRC emacs-lisp
 (setq truncate-lines nil)
 #+END_SRC
@@ -87,7 +87,7 @@ Use tab indentation everywhere
 (setq lsp-idle-delay 2.0)
 #+END_SRC
 * Dired
-Use ~~~ in a ~dired~ buffer to go to the home directory.
+Use ~ in a ~dired~ buffer to go to the home directory.
 #+BEGIN_SRC emacs-lisp
 (defun my/dired-go-home ()
   (interactive)
