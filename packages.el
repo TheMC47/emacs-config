@@ -57,3 +57,7 @@
    :repo "m-fleury/isabelle-release"
    :branch "isabelle2019-more-vscode"
    :files ("src/Tools/emacs-lsp/lsp-isar/lsp-*.el")))
+
+(package! pony-mode)
+(package! gradle-mode)
+(package! exec-path-from-shell)

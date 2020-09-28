@@ -18,9 +18,11 @@ Welcome to my emacs-config. I use [[https://github.com/hlissner/doom-emacs][doom
 - [[#dired][Dired]]
 - [[#snippets-yasnippet][Snippets: YASnippet]]
 - [[#ivy][Ivy]]
+- [[#haskell][Haskell]]
 - [[#pdf][PDF]]
 - [[#latex][Latex]]
 - [[#isabelle][Isabelle]]
+- [[#java][Java]]
 - [[#notes][Notes]]
 
 * General
@@ -112,6 +114,22 @@ A dedicated key (other than ~TAB~) for expanding snippets.
 With this, ~C-o~ will show a list of available actions in a hydra.
 #+BEGIN_SRC emacs-lisp
 (setq ivy-read-action-function #'ivy-hydra-read-action)
+#+END_SRC
+You can mark multiple entires with ~M-m~. This is helpful for example for adding parameters to constructors
+#+BEGIN_SRC emacs-lisp
+(map! :after ivy
+      :map ivy-minibuffer-map "M-m" #'ivy-mark)
+#+END_SRC
+* Haskell
+#+BEGIN_SRC emacs-lisp
+;; (use-package lsp-haskell
+;;  :ensure t
+;;  :config
+;;  (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper")
+;;  ;; Comment/uncomment this line to see interactions between lsp client/server.
+;;  (setq lsp-log-io t)
+;; )
+
 #+END_SRC
 * PDF
 - Some customization to set midnight clors and resize factor
@@ -217,6 +235,11 @@ Afterwards, this (together with the package declarations in ~packages.el~) shoul
       :nv "i i" 'lsp-isar-insert-sledgehammer-and-call
           "i s" 'lsp-isar-sledgehammer-interface
           "i t" 'lsp-isar-insert-try0)
+#+END_SRC
+* Java
+#+BEGIN_SRC emacs-lisp
+(require 'gradle-mode)
+(gradle-mode 1)
 #+END_SRC
 
 * Notes
