@@ -23,6 +23,7 @@ Welcome to my emacs-config. I use [[https://github.com/hlissner/doom-emacs][doom
 - [[#latex][Latex]]
 - [[#isabelle][Isabelle]]
 - [[#java][Java]]
+- [[#projectile][Projectile]]
 - [[#notes][Notes]]
 
 * General
@@ -241,6 +242,14 @@ Afterwards, this (together with the package declarations in ~packages.el~) shoul
 (require 'gradle-mode)
 (gradle-mode 1)
 #+END_SRC
+* Projectile
+Projectile is just great. Here I register django as a custom project type
+#+BEGIN_SRC emacs-lisp
+(after! projectile
+  (projectile-register-project-type 'npm '("manage.py")
+                                    :test "python manage.py test"
+                                    :run "python manage.py runserver"))
+ #+END_SRC
 
 * Notes
  - The ~onsave~ flag for the ~format~ module is removed in favor of a per-project configuration. In order to activate auto-formatting on save in a directory for a language, add this code to the ~.dir-locals.el~ file.
