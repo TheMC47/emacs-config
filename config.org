@@ -244,6 +244,8 @@ Afterwards, this (together with the package declarations in ~packages.el~) shoul
 #+BEGIN_SRC emacs-lisp
 (require 'gradle-mode)
 (gradle-mode 1)
+(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/yecinem/lombok.jar" "-Xbootclasspath/a:/home/yecinem/lombok.jar"))
+(setq lsp-java-format-settings-url "file:///home/yecinem/.doom.d/eclipse-java-google-style.xml")
 #+END_SRC
 * Projectile
 Projectile is just great. Here I register django as a custom project type
