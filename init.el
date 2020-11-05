@@ -41,7 +41,7 @@
         +defaults)       ; default popup rules
        (ligatures +hasklig       ; replace bits of code with pretty symbols
                   +extra)
-       ;;tabs              ; an tab bar for Emacs
+       tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -130,7 +130,7 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        (java +lsp) ; the poster child for carpal tunnel syndrome
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        (latex +latexmk +fold +cdlatex)             ; writing papers in Emacs has never been so fun
