@@ -61,12 +61,13 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font 
 (setq doom-font (font-spec :family "Source Code Pro"
                            :size (pcase (system-name)
                                    ("yecine-xps159560" 26)
-                                   (_ 16)))
+                                   (_ 14))
+                           :antialias nil)
       doom-variable-pitch-font (font-spec :family "sans"))
 #+END_SRC
 There are two ways to load a theme. Both assume the theme is installed and available. You can either set ~doom-theme~ or manually load a theme with the ~load-theme~ function. These are the defaults.
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-nova)
+(setq doom-theme 'doom-fairy-floss)
 #+END_SRC
 Another bright theme I like to use is ~doom-one-light~
 For the line-numbers, these are the possible values:
