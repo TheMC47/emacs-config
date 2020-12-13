@@ -93,6 +93,9 @@ And finally, spice up the splash screen
 * Orgmode
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/org/")
+(require 'org-ref)
+;; TODO fix this
+(setq org-latex-pdf-process (list "%latex -bibtex -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
 * LSP
 #+BEGIN_SRC emacs-lisp
