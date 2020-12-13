@@ -213,7 +213,6 @@ You can mark multiple entires with ~M-m~. This is helpful for example for adding
 #+END_SRC
 - This way, opening a latex file will automatically open the preview pane
 #+BEGIN_SRC emacs-lisp
-(add-hook 'LaTeX-mode-hook #'latex-preview-pane-mode)
 #+END_SRC
 * Isabelle
 Say goodbye to jEdit!
