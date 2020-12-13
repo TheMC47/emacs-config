@@ -68,7 +68,7 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font 
 #+END_SRC
 There are two ways to load a theme. Both assume the theme is installed and available. You can either set ~doom-theme~ or manually load a theme with the ~load-theme~ function. These are the defaults.
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-fairy-floss)
+(setq doom-theme 'doom-nord)
 #+END_SRC
 Another bright theme I like to use is ~doom-one-light~
 For the line-numbers, these are the possible values:
