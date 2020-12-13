@@ -61,3 +61,4 @@
 (package! pony-mode)
 (package! gradle-mode)
 (package! exec-path-from-shell)
+(package! org-ref)
