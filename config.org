@@ -226,13 +226,16 @@ Afterwards, this (together with the package declarations in ~packages.el~) shoul
 (use-package! isar-goal-mode
   :ensure t)
 
+;; TODO this is terribly slow, debug it, ask on zulip
 (use-package lsp-isar
   :after isar-mode isar-goal-mode
   :commands lsp-isar-define-client-and-start lsp-isar-open-output-and-progress-right-spacemacs
   :hook ((isar-mode . flycheck-mode)
          (isar-mode . lsp-isar-define-client-and-start)
          (isar-mode . yas-minor-mode)
-         (lsp-isar-init . lsp-isar-open-output-and-progress-right-spacemacs))
+         (lsp-isar-init . lsp-isar-open-output-and-progress-right-spacemacs)
+         ;; (isar-mode . display-line-numbers-mode)
+         )
   :config
   (setq lsp-response-timeout 1200)
   (setq lsp-restart 'ignore)
