@@ -61,7 +61,7 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font 
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "Source Code Pro"
                            :size (pcase (system-name)
-                                   ("yecine-xps159560" 26)
+                                   ("yecine-xps159560" 14)
                                    (_ 14))
                            :antialias nil)
       doom-variable-pitch-font (font-spec :family "sans"))
@@ -86,6 +86,10 @@ Use space indentation everywhere
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+END_SRC
+And finally, spice up the splash screen
+#+begin_src emacs-lisp
+(setq fancy-splash-image (concat doom-private-dir "club-mate.svg"))
+#+end_src
 * Orgmode
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/org/")
@@ -255,10 +259,18 @@ Projectile is just great. Here I register django as a custom project type
 (after! projectile
   (projectile-register-project-type 'npm '("manage.py")
                                     :test "python manage.py test"
-                                    :run "python manage.py runserver"))
+                                    :run "python manage.py runserver")
+  )
  #+END_SRC
 * Tabs
-Doom provides integration
+Doom provides integration with centaur tabs. This is some aestetic configuration for the module
+#+begin_src emacs-lisp
+(after! centaur-tabs
+  (setq centaur-tabs-set-bar 'under
+        x-underline-at-descent-line t
+        centaur-tabs-style "slant")
+  (centaur-tabs-group-by-projectile-project))
+#+end_src
 
 * Notes
  - The ~onsave~ flag for the ~format~ module is removed in favor of a per-project configuration. In order to activate auto-formatting on save in a directory for a language, add this code to the ~.dir-locals.el~ file.
